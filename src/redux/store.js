@@ -1,10 +1,11 @@
 import { legacy_createStore } from 'redux'
+
 import Reducer from './Reducer/Reducer'
 
 
 
 
 
-
-const store=legacy_createStore(Reducer);
+const initialState=[]
+const store=legacy_createStore(Reducer,initialState);
 export default store;

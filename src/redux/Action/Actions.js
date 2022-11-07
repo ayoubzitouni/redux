@@ -1,27 +1,15 @@
-import { Add_task,Edit_task,Filter_done,Filter_not } from "../constant/Constant";
+// call constant that had the name of the action
+import { Add_task,Edit_task } from "../constant/Constant";
 
 export const addTask=(payload)=>{
-    return({
+    return{
     type:Add_task,
     payload
-    })
+    }
 }
 export const editTask=(payload)=>{
-    return({
+    return{
     type:Edit_task,
     payload
-    })
-}
-export const filterDone=(payload)=>{
-    return({
-    type:Filter_done,
-    payload
     }
-    )
-}
-export const filterNot=(payload)=>{
-    return({
-    type:Filter_not,
-    payload
-    })
 }

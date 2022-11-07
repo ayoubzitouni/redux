@@ -1,0 +1,8 @@
+.buttons,.task{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.task{
+    width: 70vw;
+}
