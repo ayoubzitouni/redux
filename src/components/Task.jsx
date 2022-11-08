@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Form, FormControl, Modal } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
-import { editTask } from '../redux/Action/Actions'
-import { Edit_task } from '../redux/constant/Constant'
+import { editTask,Filter } from '../redux/Action/Actions'
 import './task.css'
 
 const Task = ({todo}) => {
@@ -13,11 +12,9 @@ const Task = ({todo}) => {
   const dispatch=useDispatch()
   const handleShow=()=>{
     setShow(!show)
-    setEdit("")
-  }
+   }
   const handleInput=(e)=>{
     setEdit(e.target.value)
-    console.log(edit)
   }
   const Edit=()=>{
     dispatch(editTask({id:todo.id,
@@ -29,14 +26,17 @@ const Task = ({todo}) => {
     if(!e.target.checked){
       setDone("none")
       setColor("black")
-      
+      dispatch(Filter({id:todo.id,filter:e.target.checked}))
+      console.log(e.target.checked)
     }else {setDone("line-through")
-    setColor("gray")}
+    setColor("gray")
+    dispatch(Filter({id:todo.id,filter:e.target.checked}))
+    console.log(e.target.checked)
+  }
   }
   return (
     <div className='task'>
         {/* dispatch the input to the action  */}
-        {console.log(edit)}
         <h1 style={{textDecoration:done,color:color}}>{todo.text}</h1>
         <div className='buttons'>
         <Form.Check 

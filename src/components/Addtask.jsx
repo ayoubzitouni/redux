@@ -1,30 +1,51 @@
 import React, { useState } from 'react'
-import {  Button, FormControl, Modal } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
-import {addTask} from '../redux/Action/Actions'
+import {  Button, Dropdown, FormControl, Modal } from 'react-bootstrap'
+import { useDispatch, useSelector} from 'react-redux'
+import {addTask, filterDone, filterNotDone} from '../redux/Action/Actions'
+
 
 const Addtask = () => {
     const [show,setShow]=useState(false)
     const [todoin,setTodoin]=useState("")
     const [idn,setIdn]=useState(1)
+    const tasks=useSelector(state=>state)
     const handleShow=()=>{
         setShow(!show)
     }
     const handleInput=(e)=>{
       setTodoin(e.target.value)
-      console.log(todoin)
     }
     const Save=()=>{
-      dispatch(addTask({id:idn,text:todoin}))
+      dispatch(addTask({id:idn,text:todoin,filter:false}))
       setIdn(idn+1)
       handleShow()
       setTodoin("")
 
     }
+    const handleNotDone=()=>{
+      dispatch(filterNotDone(tasks.filter((element)=>element.filter==false)))
+    }
+    const handleDone=()=>{
+      dispatch(filterDone(tasks.filter((element)=>element.filter==true)))
+    }
+    const reset=()=>{
+      dispatch(reset(""))
+    }
     const dispatch=useDispatch()
   return (
     <div>
          <Button onClick={handleShow}>+</Button>
+         <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            Filter Tasks
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={handleDone} >Done</Dropdown.Item>
+            <Dropdown.Item onClick={handleNotDone}>Not Yet</Dropdown.Item>
+            <Dropdown.Item onClick={reset}>Reset</Dropdown.Item>
+          </Dropdown.Menu>
+      </Dropdown>
         <Modal show={show} onHide={handleShow}>
         <Modal.Header closeButton>
           <Modal.Title>What tasks you plan to do</Modal.Title>
